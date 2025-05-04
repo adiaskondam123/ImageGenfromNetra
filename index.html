@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spotify Style - Student Image Search</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    /* Header */
+    .header {
+      background-color: #1db954;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: white;
+    }
+
+    .nav {
+      font-size: 16px;
+      color: #ffffffb3;
+    }
+
+    /* Main Container */
+    .container {
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 260px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 16px;
+      background-color: #1db954;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1ed760;
+    }
+
+    #imageContainer {
+      margin-top: 30px;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    #displayedImage {
+      max-width: 100%;
+      max-height: 350px;
+      display: none;
+      border-radius: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #999;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Image Finder</h1>
+    <div class="nav">Welcome</div>
+  </div>
+
+  <div class="container">
+    <div class="input-group">
+      <input type="text" id="textInput" placeholder="e.g., 21BD1A05*">
+      <button onclick="performSearch()">Search</button>
+    </div>
+
+    <div id="imageContainer">
+      <img id="displayedImage" src="" alt="Student Image">
+    </div>
+  </div>
+
+  <div class="footer">
+     Developed by KMIT Students
+  </div>
+
+  <script>
+    function performSearch() {
+      const textInput = document.getElementById('textInput');
+      const displayedImage = document.getElementById('displayedImage');
+      const userText = textInput.value.trim();
+
+      if (!userText) {
+        alert("Please enter a roll number.");
+        return;
+      }
+
+      const imageUrl = 'https://teleuniv.in/sanjaya/student-images/' + userText + '.jpg';
+
+      displayedImage.src = imageUrl;
+      displayedImage.style.display = 'none'; // hide until loaded
+
+      displayedImage.onload = function () {
+        displayedImage.style.display = 'block';
+      };
+
+      displayedImage.onerror = function () {
+        displayedImage.style.display = 'none';
+        alert("Image not found for this roll number.");
+      };
+    }
+  </script>
+</body>
+</html>
